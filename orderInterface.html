@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" style = "margin-top: -7px;">
+<style>
+    p,h1,h2{
+        color: #626262;
+    }
+
+    a{
+        color: #4b9be1;
+    }
+    .input, .resultPass{
+        border-radius: 5px;
+        border: white;
+        height: 30px;
+        width: 570px;
+        background-color: #f0f0f0;
+        outline: none;
+        padding-inline: 10px;
+    }
+
+    .submit{
+        border-radius: 20px;
+        height: 30px;
+        width: 100px;
+        border: #f0f0f0;
+        background-color: #4b9be1;
+        color: white;
+    }
+    
+    .customer,.num,.link{
+        display: flex;
+    }
+
+    .results{
+        border:1px solid #f0f0f0;
+        padding-inline: 20px;
+        width: 550px;
+    }
+
+    .state{
+        padding-left: 30px;
+        padding-top: 9px;
+
+    }
+
+    .stateIntent{
+        color: white;
+        background-color: #4b9be1;
+        width: 80px;
+        text-align: center;
+        height: 25px;
+        border-radius: 10px;
+    }
+
+    .imageText1{
+        left:0%;
+        top:0%;
+        position: absolute;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金流單號搜尋</title>
+</head>
+<body>
+    <div style="display: flex;">
+        <div style="width: 50%;padding-left: 15%;padding-top: 3%;">
+            <img src = "bezalel_blue.png">
+            <input type="file" id="excelFile" accept=".xlsx, .xls" />
+            <h1>配送進度查詢</h1>
+            <p>輸入金流單號</p>
+            <input type="text" id="searchQuery" placeholder="example:1234567890" class="input" />
+            <div style = "padding-top: 20px;padding-left:73%">
+                <button onclick="search()" class="submit">開始查詢</button>
+            </div>
+        
+            
+            <p>物流供應商</p>
+            <p id = "passer" class = "resultPass"></p>
+            <div class="results">
+                <div style="display: flex;">
+                    <h2>運送概況</h2>
+                    <div class="state" id = "state">
+                        <p></p>
+                </div>
+                </div>
+                <p>____________________________________________________________________</p>
+                <div class="customer" id = "customer">
+                    <p>訂購人:</p>
+                </div>
+                <div class="num" id = "num">
+                    <p>物流單號:</p>
+                </div>
+                <div class="link" id = "link">
+                    <p>配送詳情:</p>
+                </div>
+            </div>
+
+            <div style="display: flex;padding-top: 20px;">
+                <a href="https://www.facebook.com/BEZALEL.CO">
+                    <img src = "Facebook.png" style="width: 80%;">
+                </a>
+                <a href="https://www.facebook.com/BEZALEL.CO" style="padding-right: 3px;">
+                    <img src = "Instagram.png" style="width: 90%;">
+                </a>
+                <a href="https://www.facebook.com/BEZALEL.CO">
+                    <img src = "line.png" style="width: 7%;">
+                </a>
+            </div>
+        </div>
+
+        <img src = "OmniaX.jpg" style="width: 50%;">
+        <p class = "imageText1">Omnia X MagSafe</p>
+    </div>
+
+
+
+    <!-- 引入 SheetJS 庫 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+    <script>
+        let workbook; // 用來存儲 Excel 數據
+
+        // 當用戶選擇檔案時讀取 Excel 檔案
+        document.getElementById('excelFile').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const data = event.target.result;
+                workbook = XLSX.read(data, {type: 'binary'});
+            };
+            reader.readAsBinaryString(file);
+        });
+        
+        function search() {
+            const searchValue = document.getElementById('searchQuery').value.trim();
+            const sheetName = workbook.SheetNames[0]; // 假設只處理第一個工作表
+            const sheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(sheet);
+        
+            // 進行搜尋
+            const result = jsonData.find(row => row['金流單號'] === searchValue);
+            displayResult(result);
+        }
+        
+        function displayResult(result) {
+            const customerDiv = document.getElementById('customer');
+            const numDiv = document.getElementById('num');
+            const linkDiv = document.getElementById('link');
+            const passerDiv = document.getElementById('passer');
+            const stateDiv = document.getElementById('state');
+            if(result) {
+                customerDiv.innerHTML = `<p>訂購人：${result['收件人']}</p>`;
+                numDiv.innerHTML = `<p>物流單號：${result['宅配單號']}</p>`;
+                passerDiv.innerHTML = `<p>${result['配送詳情']}</p>`;
+                linkDiv.innerHTML = `<p>配送詳情：<a href="${result['配送網址']}" target="_blank">${result['配送詳情']}</a></p>`;
+                stateDiv.innerHTML = `<p class = "stateIntent">${result['運送概況']}</p>`;
+            } else {
+                customerDiv.innerHTML = `<p>未找到匹配的金流單號。</p>`;
+            }
+        }
+        
+    </script>
+</body>
+</html>
