@@ -79,6 +79,157 @@
         font-size: 24px;
         text-decoration: underline;
     }
+
+    .searchButton{
+        padding-top: 20px;
+        padding-left: 64%;
+    }
+
+    .fb{
+        width:80%;
+    }
+
+    .ig{
+        width:90%;
+    }
+    
+    .line{
+        width: 7%;
+    }
+
+    .pading{
+        padding-right: 3px;
+    }
+
+    @media (max-width:1600px) {
+        .imageText1_1{
+            left:79%;
+            top:70%;
+            position: absolute;
+            color:#FFFFFF;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        .searchButton{
+            padding-top: 20px;
+            padding-left: 80%;
+        }
+
+        .imageText2{
+            left:69%;
+            top:77%;
+            position: absolute;
+            color:#FFFFFF;
+            font-size: 24px;
+            text-decoration: underline;
+        }
+    }
+
+    @media (max-width:1370px) {
+        .input, .resultPass{
+            border-radius: 5px;
+            border: white;
+            height: 30px;
+            width: 500px;
+            background-color: #f0f0f0;
+            outline: none;
+            padding-inline: 10px;
+        }
+
+        .results{
+            border:1px solid #f0f0f0;
+            padding-inline: 20px;
+            width: 475px;
+        }
+
+        .imageText1_1{
+            left:80%;
+            top:70%;
+            position: absolute;
+            color:#FFFFFF;
+            font-weight: bold;
+            font-size: 32px;
+        }
+        
+        .imageText2{
+            left:69%;
+            top:78%;
+            position: absolute;
+            color:#FFFFFF;
+            font-size: 24px;
+            text-decoration: underline;
+        }
+    
+    }
+
+    @media (max-width:1024px) {
+        .Rpic{
+            display: none;
+        }
+
+        .imageText1{
+            display: none;
+        }
+
+        .imageText1_1{
+            display: none;
+        }
+
+        .imageText2{
+            display: none;
+        }
+
+        .results{
+            border:1px solid #f0f0f0;
+            padding-inline: 20px;
+            width: 257px;
+        }
+
+        .fb{
+            width:250%;
+        }
+    
+        .ig{
+            width:270%;
+        }
+        
+        .line{
+            width: 22%;
+        }
+
+        .pading{
+            padding-right: 50px;
+            padding-left: 40px;
+        }
+
+        .searchButton{
+            padding-top: 20px;
+            padding-left: 105%;
+        }
+    }
+
+    @media (max-width:600px) {
+        .input, .resultPass{
+            border-radius: 5px;
+            border: white;
+            height: 30px;
+            width: 280px;
+            background-color: #f0f0f0;
+            outline: none;
+            padding-inline: 10px;
+        }
+
+        .searchButton{
+            padding-top: 20px;
+            padding-left: 100%;
+        }
+
+        .pading{
+            padding-right: 25px;
+            padding-left: 22px;
+        }
+    }
 </style>
 <head>
     <meta charset="UTF-8">
@@ -87,13 +238,13 @@
 </head>
 <body>
     <div style="display: flex;">
-        <div style="width: 50%;padding-left: 15%;padding-top: 3%;">
+        <div style="width: 50%;padding-left: 10%;padding-top: 3%;">
             <img src = "bezalel_blue.png">
             <input type="file" id="excelFile" accept=".xlsx, .xls" />
             <h1>配送進度查詢</h1>
             <p>輸入金流單號</p>
             <input type="text" id="searchQuery" placeholder="example:1234567890" class="input" />
-            <div style = "padding-top: 20px;padding-left:73%">
+            <div class="searchButton">
                 <button onclick="search()" class="submit">開始查詢</button>
             </div>
         
@@ -107,7 +258,6 @@
                         <p></p>
                 </div>
                 </div>
-                <p>____________________________________________________________________</p>
                 <div class="customer" id = "customer">
                     <p>訂購人:</p>
                 </div>
@@ -121,18 +271,18 @@
 
             <div style="display: flex;padding-top: 20px;">
                 <a href="https://www.facebook.com/BEZALEL.CO">
-                    <img src = "Facebook.png" style="width: 80%;">
+                    <img src = "Facebook.png" class="fb">
                 </a>
-                <a href="https://www.instagram.com/bezalel_taiwan/" style="padding-right: 3px;">
-                    <img src = "Instagram.png" style="width: 90%;">
+                <a href="https://www.instagram.com/bezalel_taiwan/"class = "pading">
+                    <img src = "Instagram.png" class = "ig">
                 </a>
                 <a href="https://page.line.me/667jjfhr?openQrModal=true">
-                    <img src = "line.png" style="width: 7%;">
+                    <img src = "line.png" class = "line">
                 </a>
             </div>
         </div>
-
-        <img src = "OmniaX.jpg" style="width: 50%;">
+        
+        <img src = "OmniaX.jpg" style="width: 50%;" class="Rpic">
         <p class = "imageText1">Omnia X </p>
         <p class ="imageText1_1">MagSafe</p>
         <p class = "imageText2">每台車，都是萬能行動充電站！</p>
